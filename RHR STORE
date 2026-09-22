@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RHR STORE — Toko Resmi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --dar: #050507;
+            --mid: #12121f;
+            --acc: #7928ca;
+            --sec: #ff0080;
+            --neon: #00fff2;
+            --gold: #ffd000;
+            --wa: #25d366;
+            --tg: #0088cc;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dar);
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .font-hanz {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        /* Background Animasi */
+        .bg-animated {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(121,40,202,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,0,128,0.12) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(0,255,242,0.08) 0%, transparent 50%),
+                linear-gradient(180deg, #050507 0%, #0f0f1a 50%, #050507 100%);
+        }
+        
+        .partikel {
+            position: fixed;
+            width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .partikel span {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: rgba(0,255,242,0.6);
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(0,255,242,0.8);
+            animation: naik 12s linear infinite;
+        }
+        
+        @keyframes naik {
+            0% { transform: translateY(100vh); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh); opacity: 0; }
+        }
+        
+        .glow-text {
+            text-shadow: 
+                0 0 5px var(--neon),
+                0 0 15px var(--neon),
+                0 0 30px var(--acc),
+                0 0 50px var(--acc);
+        }
+        
+        .glow-pink {
+            text-shadow: 
+                0 0 5px var(--sec),
+                0 0 15px var(--sec),
+                0 0 30px var(--sec);
+        }
+
+        .glow-wa {
+            text-shadow: 0 0 5px var(--wa), 0 0 15px var(--wa);
+        }
+
+        .glow-tg {
+            text-shadow: 0 0 5px var(--tg), 0 0 15px var(--tg);
+        }
+        
+        .card-sangar {
+            background: linear-gradient(135deg, rgba(18,18,31,0.8) 0%, rgba(5,5,7,0.9) 100%);
+            border: 1px solid rgba(121,40,202,0.3);
+            border-radius: 16px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-sangar::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,0,128,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .card-sangar:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: var(--sec);
+            box-shadow: 
+                0 0 20px rgba(121,40,202,0.4),
+                0 10px 40px rgba(0,0,0,0.6);
+        }
+        
+        .card-sangar:hover::before {
+            left: 100%;
+        }
+        
+        .btn-hanz {
+            background: linear-gradient(90deg, var(--acc), var(--sec));
+            border: none;
+            border-radius: 12px;
+            padding: 12px 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-hanz:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px var(--acc), 0 0 40px var(--sec);
+        }
+
+        .btn-wa {
+            background: linear-gradient(90deg, #1fb74f, #25d366);
+        }
+        .btn-wa:hover {
+            box-shadow: 0 0 25px var(--wa), 0 0 40px var(--wa);
+        }
+
+        .btn-tg {
+            background: linear-gradient(90deg, #0077b5, #0088cc);
+        }
+        .btn-tg:hover {
+            box-shadow: 0 0 25px var(--tg), 0 0 40px var(--tg);
+        }
+        
+        .garis-neon {
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon), var(--acc), var(--sec), transparent);
+            border-radius: 2px;
+        }
+        
+        .harga {
+            background: linear-gradient(90deg, var(--gold), #ff9500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--neon);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .logo-glow {
+            filter: drop-shadow(0 0 8px var(--neon)) drop-shadow(0 0 16px var(--acc));
+        }
+
+        a.konta-link {
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        a.konta-link:hover {
+            transform: translateX(8px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background -->
+    <div class="bg-animated"></div>
+    <div class="partikel" id="partikel"></div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-black/40 border-b border-purple-900/30">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="font-hanz text-2xl font-black tracking-wider glow-text logo-glow">RHR STORE</a>
+            <div class="hidden md:flex gap-8 text-lg font-semibold">
+                <a href="#beranda" class="nav-link hover:text-cyan-300">Beranda</a>
+                <a href="#produk" class="nav-link hover:text-cyan-300">Produk</a>
+                <a href="#tentang" class="nav-link hover:text-cyan-300">Tentang</a>
+                <a href="#kontak" class="nav-link hover:text-cyan-300">Kontak</a>
+            </div>
+            <button class="md:hidden text-2xl" id="menuBtn"><i class="fa fa-bars"></i></button>
+        </div>
+        <!-- Menu HP -->
+        <div class="md:hidden hidden px-4 pb-4" id="menuHp">
+            <div class="flex flex-col gap-3 text-lg font-semibold">
+                <a href="#beranda" class="py-2 border-b border-purple-900/30">Beranda</a>
+                <a href="#produk" class="py-2 border-b border-purple-900/30">Produk</a>
+                <a href="#tentang" class="py-2 border-b border-purple-900/30">Tentang</a>
+                <a href="#kontak" class="py-2">Kontak</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Beranda -->
+    <section id="beranda" class="min-h-screen flex items-center justify-center pt-20 px-4">
+        <div class="text-center max-w-4xl">
+            <h1 class="font-hanz text-5xl md:text-7xl font-black mb-6 leading-tight">
+                <span class="glow-text">RHR</span><span class="glow-pink">STORE</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-4">Dunia Teknologi & Produk Premium</p>
+            <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">Kualitas Terbaik • stay cool imo • Harga Bersahabat</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+                <a href="#produk" class="btn-hanz inline-block text-white text-lg">Lihat Produk Kami</a>
+                <a href="https://wa.me/6285122569407?text=Halo%20RHR%20STORE%2C%20saya%20mau%20tanya%20produk" target="_blank" class="btn-hanz btn-wa inline-block text-white text-lg">
+                    <i class="fa fa-whatsapp mr-2"></i>Chat WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Garis Pemisah -->
+    <div class="garis-neon max-w-4xl mx-auto mb-16"></div>
+
+    <!-- Produk -->
+    <section id="produk" class="max-w-7xl mx-auto px-4 pb-20">
+        <h2 class="font-hanz text-4xl font-bold text-center mb-12 glow-text">PRODUK UNGGULAN</h2>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Produk 1 -->
+            <div class="card-sangar p-6">
+                <div class="text-5xl mb-4">⚡</div>
+                <h3 class="font-hanz text-xl font-bold mb-2">X-COMBO TOOLS</h3>
+                <p class="text-gray-400 mb-4">Paket alat lengkap untuk performa maksimal</p>
+                <p class="harga text-2xl mb-4">Rp 45.000</p>
+                <a href="https://wa.me/6285122569407?text=Halo%2C%20saya%20mau%20beli%20X-COMBO%20TOOLS%20seharga%20Rp45.000" target="_blank" class="btn-hanz btn-wa w-full text-white block text-center">
+                    <i class="fa fa-whatsapp mr-1"></i> Beli Sekarang
+                </a>
+            </div>
+
+            <!-- Produk 2 -->
+            <div class="card-sangar p-6">
+                <div class="text-5xl mb-4">🛡️</div>
+                <h3 class="font-hanz text-xl font-bold mb-2">SEMPAK ZARWO</h3>
+                <p class="text-gray-400 mb-4">Optimasi sistem & kecepatan maksimal</p>
+                <p class="harga text-2xl mb-4">Rp 350.000</p>
+                <a href="https://wa.me/6285122569407?text=Halo%2C%20saya%20mau%20beli%20SEMPAK%20ZARWO%20seharga%20Rp350.000" target="_blank" class="btn-hanz btn-wa w-full text-white block text-center">
+                    <i class="fa fa-whatsapp mr-1"></i> Beli Sekarang
+                </a>
+            </div>
+
+            <!-- Produk 3 -->
+            <div class="card-sangar p-6">
+                <div class="text-5xl mb-4">🔥</div>
+                <h3 class="font-hanz text-xl font-bold mb-2">FORCE CLOSE PRO</h3>
+                <p class="text-gray-400 mb-4">Manajemen aplikasi & pembersih sampah</p>
+                <p class="harga text-2xl mb-4">Rp 25.000</p>
+                <a href="https://wa.me/6285122569407?text=Halo%2C%20saya%20mau%20beli%20FORCE%20CLOSE%20PRO%20seharga%20Rp25.000" target="_blank" class="btn-hanz btn-wa w-full text-white block text-center">
+                    <i class="fa fa-whatsapp mr-1"></i> Beli Sekarang
+                </a>
+            </div>
+
+            <!-- Produk 4 -->
+            <div class="card-sangar p-6">
+                <div class="text-5xl mb-4">💎</div>
+                <h3 class="font-hanz text-xl font-bold mb-2">INVISIBLE PACK</h3>
+                <p class="text-gray-400 mb-4">Tema & tampilan rahasia keren</p>
+                <p class="harga text-2xl mb-4">Rp 55.000</p>
+                <a href="https://wa.me/6285122569407?text=Halo%2C%20saya%20mau%20beli%20INVISIBLE%20PACK%20seharga%20Rp55.000" target="_blank" class="btn-hanz btn-wa w-full text-white block text-center">
+                    <i class="fa fa-whatsapp mr-1"></i> Beli Sekarang
+                </a>
+            </div>
+
+            <!-- Produk 5 -->
+            <div class="card-sangar p-6">
+                <div class="text-5xl mb-4">🔮</div>
+                <h3 class="font-hanz text-xl font-bold mb-2">CRASH ELITE</h3>
+                <p class="text-gray-400 mb-4">Paket lengkap semua fitur sekaligus</p>
+                <p class="harga text-2xl mb-4">Rp 85.000</p>
+                <a href="https://wa.me/6285122569407?text=Halo%2C%20saya%20mau%20beli%20CRASH%20ELITE%20seharga%20Rp85.000" target="_blank" class="btn-hanz btn-wa w-full text-white block text-center">
+                    <i class="fa fa-whatsapp mr-1"></i> Beli Sekarang
+                </a>
+            </div>
+
+            <!-- Produk 6 -->
+            <div class="card-sangar p-6">
+                <div class="text-5xl mb-4">👑</div>
+                <h3 class="font-hanz text-xl font-bold mb-2">HANZ PREMIUM</h3>
+                <p class="text-gray-400 mb-4">Akses selamanya + update gratis</p>
+                <p class="harga text-2xl mb-4">Rp 120.000</p>
+                <a href="https://wa.me/6285122569407?text=Halo%2C%20saya%20mau%20beli%20HANZ%20PREMIUM%20seharga%20Rp120.000" target="_blank" class="btn-hanz btn-wa w-full text-white block text-center">
+                    <i class="fa fa-whatsapp mr-1"></i> Beli Sekarang
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Garis Pemisah -->
+    <div class="garis-neon max-w-4xl mx-auto mb-16"></div>
+
+    <!-- Tentang -->
+    <section id="tentang" class="max-w-4xl mx-auto px-4 pb-20">
+        <h2 class="font-hanz text-4xl font-bold text-center mb-8 glow-pink">TENTANG RHR STORE</h2>
+        <div class="card-sangar p-8">
+            <p class="text-lg text-gray-300 mb-4">RHR STORE adalah tempat terbaik untuk mendapatkan produk digital berkualitas dengan tampilan yang keren dan sangar.</p>
+            <p class="text-lg text-gray-300 mb-4">Kami menyediakan alat-alat yang membantu kamu mengoptimalkan perangkat, mempercantik tampilan, dan meningkatkan performa — semua dengan harga yang pas di kantong.</p>
+            <p class="text-lg text-cyan-300 font-semibold">🚀 Cepat • Aman • Terpercaya</p>
+        </div>
+    </section>
+
+    <!-- Kontak -->
+    <section id="kontak" class="max-w-4xl mx-auto px-4 pb-20">
+        <h2 class="font-hanz text-4xl font-bold text-center mb-8 glow-text">HUBUNGI KAMI</h2>
+        <div class="card-sangar p-8 space-y-6">
+            <!-- WhatsApp -->
+            <a href="https://wa.me/6285122569407?text=Halo%20RHR%20STORE%2C%20saya%20mau%20tanya%20produk" target="_blank" 
+               class="konta-link block p-4 rounded-xl bg-green-900/20 border border-green-500/30 hover:border-green-400">
+                <p class="text-xl"><i class="fa fa-whatsapp text-green-400 glow-wa mr-3"></i> WhatsApp</p>
+                <p class="text-gray-300 ml-8">0851-2256-9407 — Klik langsung chat!</p>
+            </a>
+            
+            <!-- Telegram -->
+            <a href="https://t.me/HanzHolow" target="_blank" 
+               class="konta-link block p-4 rounded-xl bg-sky-900/20 border border-sky-500/30 hover:border-sky-400">
+                <p class="text-xl"><i class="fa fa-telegram text-sky-400 glow-tg mr-3"></i> Telegram</p>
+                <p class="text-gray-300 ml-8">@HanzHolow — Klik langsung masuk!</p>
+            </a>
+            
+            <!-- Email -->
+            <div class="p-4 rounded-xl bg-gray-900/30 border border-gray-700/30">
+                <p class="text-xl"><i class="fa fa-envelope text-cyan-400 mr-3"></i> Email</p>
+                <p class="text-gray-300 ml-8">apepalparab055@gmail.com</p>
+            </div>
+
+            <!-- Jam Buka -->
+            <div class="p-4 rounded-xl bg-yellow-900/20 border border-yellow-600/30">
+                <p class="text-xl"><i class="fa fa-clock-o text-yellow-400 mr-3"></i> Jam Operasional</p>
+                <p class="text-gray-300 ml-8">Setiap Hari • 08.00 — 23.00 WIB</p>
+            </div>
+
+            <!-- Tombol Pesan Cepat -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                <a href="https://wa.me/6285122569407?text=Halo%20RHR%20STORE%2C%20saya%20mau%20pesan" target="_blank" 
+                   class="btn-hanz btn-wa flex-1 text-white text-center py-3">
+                    <i class="fa fa-whatsapp mr-2"></i> Pesan via WhatsApp
+                </a>
+                <a href="https://t.me/HanzHolow" target="_blank" 
+                   class="btn-hanz btn-tg flex-1 text-white text-center py-3">
+                    <i class="fa fa-telegram mr-2"></i> Pesan via Telegram
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 border-t border-purple-900/30">
+        <p class="font-hanz text-lg">© 2026 RHR STORE — Semua Hak Dilindungi</p>
+        <p class="text-sm text-gray-500 mt-2">Dibuat dengan gaya paling sangar 💀</p>
+    </footer>
+
+    <!-- Script -->
+    <script>
+        // Partikel bergerak
+        const partikelContainer = document.getElementById('partikel');
+        const jumlahPartikel = 60;
+
+        for (let i = 0; i < jumlahPartikel; i++) {
+            const p = document.createElement('span');
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDelay = Math.random() * 12 + 's';
+            p.style.animationDuration = (8 + Math.random() * 10) + 's';
+            partikelContainer.appendChild(p);
+        }
+
+        // Menu HP
+        const menuBtn = document.getElementById('menuBtn');
+        const menuHp = document.getElementById('menuHp');
+        menuBtn.addEventListener('click', () => {
+            menuHp.classList.toggle('hidden');
+        });
+
+        // Animasi gulir halus
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    menuHp.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                                        
